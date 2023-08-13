@@ -1,0 +1,38 @@
+<h2 mat-dialog-title>
+  {{ data.id ? 'Edit' : 'Create' }}
+  {{ data.type === 2 ? 'Group' : data.type === 3 ? 'Channel' : 'Contats' }}
+</h2>
+<form *ngIf="form" [formGroup]="form" (ngSubmit)="onSubmit()">
+  <mat-dialog-content>
+    <div class="form-controls">
+      <mat-form-field>
+        <mat-label>Name</mat-label>
+        <input formControlName="name" matInput>
+      </mat-form-field>
+      <div class="mb-1">
+        <label>Link</label>
+        <mat-radio-group formControlName="isPrivate" aria-label="Select an option">
+          <mat-radio-button [value]="false">Public</mat-radio-button>
+          <mat-radio-button [value]="true">Private</mat-radio-button>
+        </mat-radio-group>
+      </div>
+      <mat-form-field>
+        <mat-label>Link</mat-label>
+        <input formControlName="link" matInput>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Description</mat-label>
+        <textarea formControlName="description" matInput></textarea>
+      </mat-form-field>
+    </div>
+  </mat-dialog-content>
+  <mat-dialog-actions align="end">
+    <button mat-flat-button mat-dialog-close>Cancel</button>
+    <button mat-flat-button type="submit" color="primary" [disabled]="form.invalid || isSubmitting" cdkFocusInitial>
+      <mat-icon *ngIf="isSubmitting">
+        <mat-spinner diameter="20" />
+      </mat-icon>
+      Submit
+    </button>
+  </mat-dialog-actions>
+</form>

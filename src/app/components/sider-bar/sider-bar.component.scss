@@ -1,0 +1,12 @@
+:host {
+    height: 100%;
+    display: flex;
+    // width: var(--mat-toolbar-standard-height);
+    flex-direction: column;
+    justify-content: space-between;
+    background-color: var(--mat-toolbar-container-background-color); 
+    border-right: 1px solid rgba($color: #000000, $alpha: 0.1);
+}
+.selected{
+    background-color: rgba(0, 0, 0, .1);
+}

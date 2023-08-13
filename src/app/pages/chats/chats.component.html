@@ -1,0 +1,31 @@
+<div class="chats-nav">
+  <mat-toolbar class="chats-toolbar">
+    <div></div>
+    <div>Chats</div>
+    <div>
+      <button mat-icon-button color="primary" [matMenuTriggerFor]="addChatMenu">
+        <mat-icon>add</mat-icon>
+      </button>
+      <mat-menu #addChatMenu="matMenu">
+        <button mat-menu-item>
+          <mat-icon>person_add</mat-icon>
+          New Contcats
+        </button>
+        <button mat-menu-item (click)="createOrEditChat(2)">
+          <mat-icon>group</mat-icon>
+          New Group
+        </button>
+        <button mat-menu-item (click)="createOrEditChat(3)">
+          <mat-icon>campaign</mat-icon>
+          New Channel
+        </button>
+      </mat-menu>
+    </div>
+  </mat-toolbar>
+  <div class="chats-list-container">
+    <app-chat-list></app-chat-list>
+  </div>
+</div>
+<div class="chats-main">
+  <router-outlet></router-outlet>
+</div>

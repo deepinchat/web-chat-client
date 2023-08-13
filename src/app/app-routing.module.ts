@@ -5,8 +5,7 @@ import { CallbackComponent } from './components/callback/callback.component';
 
 const routes: Routes = [
   { path: `callback/:type`, component: CallbackComponent },
-  { path: 'p', loadChildren: () => import('./pages/pages.module').then(m => m.PagesModule), canActivate: [authGuard] },
-  { path: '', pathMatch: 'full', redirectTo: 'p' }
+  { path: '', loadChildren: () => import('./pages/pages.module').then(m => m.PagesModule), canActivate: [authGuard] },
 ];
 
 @NgModule({

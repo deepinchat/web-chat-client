@@ -3,7 +3,7 @@ import { AuthService } from './auth.service';
 import { HttpTransportType, HubConnection, HubConnectionBuilder, LogLevel } from '@microsoft/signalr';
 import { environment } from 'src/environments/environment';
 
-const CHAT_HUB_URL = `${environment.apiGateWay}/hub/chats`;
+const CHAT_HUB_URL = `${environment.apiGateWay}/chatting-ws/hub/chats`;
 @Injectable({
   providedIn: 'root'
 })

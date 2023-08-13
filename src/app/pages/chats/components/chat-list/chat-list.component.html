@@ -1,0 +1,24 @@
+<form *ngIf="form" [formGroup]="form"  (ngSubmit)="onQuery()">
+  <mat-form-field class="search-form-field">
+    <mat-label>Search</mat-label>
+    <input formControlName="keywords" matInput>
+    <button matSuffix mat-button>
+      <mat-icon>search</mat-icon>
+    </button>
+  </mat-form-field>
+</form>
+<mat-nav-list>
+  <mat-list-item *ngFor="let chat of chats;let i=index" [activated]="i === 5" [ngClass]="i===5 ?'list-item-selected':''"
+    [routerLink]="[chat.id,'room']">
+    <img matListItemAvatar src="https://assets.materialup.com/uploads/5b045613-638c-41d9-9b7c-5f6c82926c6e/preview.png"
+      alt="...">
+    <h3 matListItemTitle>{{chat.name}}</h3>
+    <p matListItemLine>
+      <span>Leo</span>
+      <span class="demo-2"> -- Hello, are you there?</span>
+    </p>
+    <small matListItemMeta>
+      {{chat.updatedAt | chatDate}}
+    </small>
+  </mat-list-item>
+</mat-nav-list>
