@@ -10,7 +10,7 @@ export class ChatDatePipe implements PipeTransform {
   ) {
 
   }
-  transform(value: string, args?: any): any {
+  transform(value: string | number | Date, args?: any): any {
     const now = new Date();
     const date = new Date(value);
     if (now.getDate() === date.getDate()) {

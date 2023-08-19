@@ -2,12 +2,16 @@ import { Injectable } from '@angular/core';
 import { AuthService } from './auth.service';
 import { HttpTransportType, HubConnection, HubConnectionBuilder, LogLevel } from '@microsoft/signalr';
 import { environment } from 'src/environments/environment';
+import { Subject } from 'rxjs';
+import { MessageData } from './message.service';
 
 const CHAT_HUB_URL = `${environment.apiGateWay}/chatting-ws/hub/chats`;
 @Injectable({
   providedIn: 'root'
 })
 export class ChatHubService {
+  private messageSubject = new Subject<MessageData>();
+  public messageObservable = this.messageSubject.asObservable();
   private hubConnection?: HubConnection;
   constructor(
     private authService: AuthService,
@@ -16,8 +20,10 @@ export class ChatHubService {
 
   public start() {
     this.register();
-    this.stablishConnection();
-    this.registerHandlers();
+    this.stablishConnection()
+      ?.then(() => {
+        this.registerHandlers();
+      });
   }
 
   public stop() {
@@ -36,7 +42,7 @@ export class ChatHubService {
   }
 
   private stablishConnection() {
-    this.hubConnection?.start()
+    return this.hubConnection?.start()
       .then(() => {
         console.log('Hub connection started')
       })
@@ -46,8 +52,8 @@ export class ChatHubService {
   }
 
   private registerHandlers() {
-    this.hubConnection?.on('new_chat_message', (msg) => {
-      console.log(`New chat message recevied:${msg}`);
+    this.hubConnection?.on('new_message', (msg) => {
+      this.messageSubject.next(msg);
     });
   }
 }

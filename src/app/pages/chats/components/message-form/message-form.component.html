@@ -1,0 +1,14 @@
+<form *ngIf="form" [formGroup]="form" (ngSubmit)="onSubmit()" 
+(keydown)="enterForm($event)">
+  <mat-form-field>
+    <textarea formControlName="content" matInput></textarea>
+  </mat-form-field>
+  <div class="form-submit">
+    <button mat-flat-button color="primary" [disabled]="form.invalid || isLoading">
+      <mat-icon *ngIf="isLoading">
+        <mat-spinner diameter="20" />
+      </mat-icon>
+      Send
+    </button>
+  </div>
+</form>

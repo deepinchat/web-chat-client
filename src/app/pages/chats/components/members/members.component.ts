@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { ChatModel } from 'src/app/core/services/chat.service';
 
 @Component({
   selector: 'app-members',
@@ -6,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./members.component.css']
 })
 export class MembersComponent implements OnInit {
-
+  @Input() chat?: ChatModel;
   constructor() { }
 
   ngOnInit() {

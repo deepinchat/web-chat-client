@@ -1,5 +1,5 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { ChatModel } from '../services/chat.service';
+import { Component, Input, OnInit } from '@angular/core';
+import { ChatModel } from 'src/app/core/services/chat.service';
 
 @Component({
   selector: 'app-chats-header',

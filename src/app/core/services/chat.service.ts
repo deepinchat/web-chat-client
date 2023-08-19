@@ -18,6 +18,7 @@ interface CreateChatCommand {
   description: string;
   type: ChatType;
   isPrivate: boolean;
+
 }
 
 interface ChatModel extends CreateChatCommand {
@@ -27,7 +28,9 @@ interface ChatModel extends CreateChatCommand {
   isVerified: string;
 }
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 class ChatService {
   constructor(
     private httpClient: HttpClient

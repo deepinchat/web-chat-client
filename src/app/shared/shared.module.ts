@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule, DatePipe } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { ChatDatePipe } from './pipes/chat-date.pipe';
+import { SubStringPipe } from './pipes/sub-string.pipe';
 
 @NgModule({
   imports: [
@@ -9,15 +10,17 @@ import { ChatDatePipe } from './pipes/chat-date.pipe';
     RouterModule
   ],
   declarations: [
-    ChatDatePipe
+    ChatDatePipe,
+    SubStringPipe
   ],
   exports: [
     CommonModule,
     RouterModule,
-    ChatDatePipe
+    ChatDatePipe,
+    SubStringPipe
   ],
   providers: [
-    DatePipe
+    DatePipe,
   ]
 })
 export class SharedModule { }

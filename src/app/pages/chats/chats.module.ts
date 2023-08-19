@@ -1,5 +1,4 @@
 import { NgModule } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatListModule } from '@angular/material/list';
 import { MatButtonModule } from '@angular/material/button';
@@ -12,23 +11,22 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatRadioModule } from '@angular/material/radio';
+import { ScrollingModule } from '@angular/cdk/scrolling';
 
 import { ChatsComponent } from './chats.component';
 import { SharedModule } from 'src/app/shared/shared.module';
-import { HeaderComponent } from './header/header.component';
-import { MembersComponent } from './members/members.component';
-import { MessagesComponent } from './messages/messages.component';
-import { SettingsComponent } from './settings/settings.component';
+import { MessagesComponent } from './components/messages/messages.component';
 import { ChatsRoutingModule } from './chats-routing.module';
 import { ReactiveFormsModule } from '@angular/forms';
-import { ChatService } from './services/chat.service';
 import { ChatEditorComponent } from './components/chat-editor/chat-editor.component';
 import { ChatListComponent } from './components/chat-list/chat-list.component';
 import { RoomComponent } from './room/room.component';
+import { MessageFormComponent } from './components/message-form/message-form.component';
+import { HeaderComponent } from './components/header/header.component';
+import { MessageDataSource } from './services/message-data-source';
 
 @NgModule({
   imports: [
-    HttpClientModule,
     ReactiveFormsModule,
     MatToolbarModule,
     MatButtonModule,
@@ -43,7 +41,8 @@ import { RoomComponent } from './room/room.component';
     MatProgressSpinnerModule,
     MatSlideToggleModule,
     MatRadioModule,
-
+    ScrollingModule,
+    
     SharedModule,
     ChatsRoutingModule
   ],
@@ -51,14 +50,10 @@ import { RoomComponent } from './room/room.component';
     ChatsComponent,
     ChatListComponent,
     RoomComponent,
-    HeaderComponent,
-    MembersComponent,
     MessagesComponent,
-    SettingsComponent,
-    ChatEditorComponent
-  ],
-  providers: [
-    ChatService
+    ChatEditorComponent,
+    MessageFormComponent,
+    HeaderComponent
   ]
 })
 export class ChatsModule { }

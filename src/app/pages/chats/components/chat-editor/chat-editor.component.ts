@@ -1,8 +1,8 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ChatModel, ChatService, ChatType } from '../../services/chat.service';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { ChatType, ChatService, ChatModel } from 'src/app/core/services/chat.service';
 
 @Component({
   selector: 'app-chat-editor',

@@ -1,0 +1,65 @@
+:host {
+    flex: 1;
+    display: flex;
+    justify-content: flex-end;
+    flex-direction: column;
+}
+
+.message-loading {
+    padding: 10px 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.message-viewport {
+    height: calc(100vh - 127px - 64px);
+}
+
+.message-list {
+    display: flex;
+    flex-direction: column-reverse;
+    gap: 10px;
+    padding: 10px 0;
+}
+
+.message-item {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+
+    .message-user-avatar {
+        height: 50px;
+        width: 50px;
+    }
+
+    .message-container {
+        max-width: 66.7%;
+        display: flex;
+        flex-direction: column;
+        background-color: rgba($color: #000000, $alpha: 0.1);
+        padding: 10px;
+        border-radius: 0 10px 10px 10px;
+
+        .message-from {
+            color: rgba($color: #000000, $alpha: .5);
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+        }
+    }
+}
+
+.message-reverse {
+    flex-direction: row-reverse;
+
+    .message-container {
+        border-radius: 10px 0 10px 10px;
+
+        .message-from {
+            flex-direction: row-reverse;
+        }
+    }
+}

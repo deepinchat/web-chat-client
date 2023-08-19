@@ -1,5 +1,5 @@
-<app-chats-header *ngIf="chat" [chat]="chat"></app-chats-header>
-<p>
-  room works!
-</p>
-<router-outlet></router-outlet>
+<ng-container *ngIf="chat">
+  <app-chats-header [chat]="chat"></app-chats-header>
+  <app-messages [chatId]="chat.id"></app-messages>
+  <app-message-form [chatId]="chat.id"></app-message-form>
+</ng-container>

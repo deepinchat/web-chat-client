@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { ChatModel, ChatService } from '../../services/chat.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ChatModel, ChatService } from 'src/app/core/services/chat.service';
 
 @Component({
   selector: 'app-chat-list',

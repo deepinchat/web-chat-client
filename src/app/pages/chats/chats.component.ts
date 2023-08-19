@@ -1,10 +1,8 @@
-import { Component, EventEmitter, OnInit, ViewChild } from '@angular/core';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { Router } from '@angular/router';
 import { ChatEditorComponent } from './components/chat-editor/chat-editor.component';
-import { ChatType } from './services/chat.service';
 import { ChatListComponent } from './components/chat-list/chat-list.component';
+import { ChatType } from 'src/app/core/services/chat.service';
 
 @Component({
   selector: 'app-chats',
