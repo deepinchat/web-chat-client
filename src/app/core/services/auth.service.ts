@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { UserManager } from 'oidc-client';
+import { User, UserManager } from 'oidc-client';
 import { Observable, from, map } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
@@ -17,19 +17,28 @@ export class AuthService extends UserManager {
       scope: 'openid profile bss chat identity message',
       response_type: 'id_token token',
       automaticSilentRenew: true
+    });
+    this.events.addAccessTokenExpiring(() => {
+      this.signinSilent();
     })
   }
 
+  private parseAccessToken(user: User, withTokenType = false) {
+    return withTokenType ? `${user.token_type} ${user.access_token}` : user?.access_token;
+  }
+
   public getAccessToken(withTokenType = false): Observable<string | undefined> {
-    return from(this.getUser())
-      .pipe(map(user => user && withTokenType ? `${user.token_type} ${user.access_token}` : user?.access_token));
+    return from(this.getAccessTokenAsync(withTokenType));
   }
 
   public getAccessTokenAsync(withTokenType = false) {
     return this.getUser()
       .then(user => {
         if (user) {
-          return withTokenType ? `${user.token_type} ${user.access_token}` : user?.access_token;
+          if (user.expired) {
+            return this.signinSilent().then(u => this.parseAccessToken(user, withTokenType));
+          }
+          return this.parseAccessToken(user, withTokenType);
         }
         return '';
       });

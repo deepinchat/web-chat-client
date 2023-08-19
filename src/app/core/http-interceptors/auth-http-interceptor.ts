@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
-import { HttpInterceptor, HttpEvent, HttpHandler, HttpRequest } from '@angular/common/http';
-import { Observable, mergeMap } from 'rxjs';
+import { HttpInterceptor, HttpEvent, HttpHandler, HttpRequest, HttpErrorResponse } from '@angular/common/http';
+import { Observable, mergeMap, tap } from 'rxjs';
 import { AuthService } from "../services/auth.service";
 
 @Injectable()
@@ -18,6 +18,16 @@ export class AuthHttpInterceptor implements HttpInterceptor {
                     });
                 }
                 return next.handle(req);
+            }))
+            .pipe(tap({
+                next(value) {
+                    return value;
+                },
+                error: (error: any) => {
+                    if (error instanceof HttpErrorResponse) {
+                        console.error(error);
+                    }
+                }
             }));
     }
 }
