@@ -1,22 +1,19 @@
 import { CollectionViewer, DataSource } from "@angular/cdk/collections";
-import { BehaviorSubject, Observable } from "rxjs";
+import { BehaviorSubject, Observable, Subject, firstValueFrom, from } from "rxjs";
 import { ChatHubService } from "src/app/core/services/chat-hub.service";
 import { MessageData, MessageQueryModel, MessageService } from "src/app/core/services/message.service";
 
 export class MessageDataSource extends DataSource<MessageData> {
     private readonly _dataStream = new BehaviorSubject<Array<MessageData>>([]);
-    // private loadingSubject = new BehaviorSubject<boolean>(false);
-
-    // public loading$ = this.loadingSubject.asObservable();
-
-    // private isLoadedAllSubject = new BehaviorSubject<boolean>(false);
-    // public isLoadedAll$ = this.isLoadedAllSubject.asObservable();
 
     public isLoading = false;
     public isLastPage = false;
     public totalCount = 0;
     private pageIndex = 1;
-    private pageSize = 10;
+    private pageSize = 30;
+
+    private readonly _newMessageSubject = new Subject<void>();
+    public newMessagePushed = this._newMessageSubject.asObservable();
 
     connect(collectionViewer: CollectionViewer): Observable<readonly MessageData[]> {
         return this._dataStream;
@@ -33,6 +30,7 @@ export class MessageDataSource extends DataSource<MessageData> {
         this.chatHubService.messageObservable.subscribe(msg => {
             if (msg.chatId === this.chatId) {
                 this.updateData([msg]);
+                this._newMessageSubject.next();
             }
         });
     }
@@ -55,19 +53,16 @@ export class MessageDataSource extends DataSource<MessageData> {
     load() {
         if (this.isLoading) return;
         this.isLoading = true;
-        this.messageService.list({
+        return firstValueFrom(this.messageService.list({
             chatId: this.chatId,
             pageIndex: this.pageIndex,
             pageSize: this.pageSize
+        })).then(res => {
+            this.isLastPage = res.totalPages <= this.pageIndex;
+            this.updateData(res.items);
         })
-            .subscribe({
-                next: (res) => {
-                    this.isLastPage = res.totalPages <= this.pageIndex;
-                    this.updateData(res.items);
-                },
-                complete: () => {
-                    this.isLoading = false;
-                }
-            })
+            .finally(() => {
+                this.isLoading = false;
+            });
     }
 }

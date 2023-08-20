@@ -1,6 +1,6 @@
-<cdk-virtual-scroll-viewport *ngIf="dataSource" appendOnly [itemSize]="dataSource.totalCount" class="message-viewport"
+<cdk-virtual-scroll-viewport #scrollViewport *ngIf="dataSource" appendOnly itemSize="auto" class="message-viewport"
   cdkScrollable>
-  <div class="message-loading" *ngIf="dataSource.isLoading" >
+  <div class="message-loading" *ngIf="dataSource.isLoading">
     <mat-spinner diameter="24"></mat-spinner>
   </div>
   <div class="message-list">
